@@ -30,7 +30,7 @@ fun quicksort(lst) {
   val rest = lst.drop(1)
   val smaller = quicksort(rest.filter { it <= pivot })
   val larger  = quicksort(rest.filter { it > pivot })
-  return smaller + listOf(pivot) + larger
+  return smaller.addAll(listOf(pivot)).addAll(larger)
 }
 println(quicksort(listOf(3, 6, 8, 10, 1, 2, 1)))
 // [1, 1, 2, 3, 6, 8, 10]

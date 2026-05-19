@@ -1,6 +1,6 @@
 {
   "name": "@teaklang/teak",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "Teak is a Kotlin-inspired scripting language that runs on Node.js",
   "main": "interpreter.js",
   "bin": {
@@ -29,7 +29,6 @@
     "test": "node test/run.js"
   },
   "dependencies": {
-    "@teaklang/teak": "^1.0.0",
     "bintrees": "^1.0.2",
     "dayjs": "^1.11.20"
   },
