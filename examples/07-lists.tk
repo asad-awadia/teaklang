@@ -1,0 +1,87 @@
+// Lists
+// Immutable (listOf) and mutable (mutableListOf) lists with a rich API.
+
+// Creating lists
+val nums = listOf(1, 2, 3, 4, 5)
+val items = mutableListOf(3, 1, 4, 1, 5)
+
+// Access
+println(nums.get(0))       // 1
+println(nums.first())      // 1
+println(nums.last())       // 5
+println(nums.size())       // 5
+println(nums.contains(3))  // true
+println(nums.indexOf(4))   // 3
+
+// Mutation (mutable only)
+items.add(9)
+items.set(0, 99)
+items.remove(1)
+items.removeAt(0)
+println(items)  // [4, 1, 5, 9]
+items.clear()
+
+// Slicing
+val first3 = nums.take(3)     // [1, 2, 3]
+val after2 = nums.drop(2)     // [3, 4, 5]
+val rev = nums.reversed()     // [5, 4, 3, 2, 1]
+println(first3)
+println(after2)
+println(rev)
+
+// Sorting
+val sorted = mutableListOf(3, 1, 4, 1, 5, 9).sorted()
+val desc = mutableListOf(3, 1, 4).sortedDescending()
+println(sorted)  // [1, 1, 3, 4, 5, 9]
+println(desc)    // [4, 3, 1]
+
+// Sorting with custom comparator
+val words = mutableListOf("banana", "apple", "cherry")
+words.sort { a, b -> strCmp(a, b) }
+println(words)  // [apple, banana, cherry]
+
+// Functional: map, filter, fold
+val doubled = nums.map { it * 2 }
+println(doubled)  // [2, 4, 6, 8, 10]
+
+val evens = nums.filter { it % 2 == 0 }
+println(evens)  // [2, 4]
+
+val sum = nums.fold(0) { acc, v -> acc + v }
+println(sum)  // 15
+
+// Predicates
+println(nums.any { it > 3 })   // true
+println(nums.all { it > 0 })   // true
+println(nums.none { it > 10 }) // true
+
+// Find and count
+println(nums.find { it > 3 })        // 4
+println(nums.count { it % 2 == 0 })  // 2
+
+// Grouping
+val words2 = listOf("apple", "banana", "apricot", "cherry", "avocado")
+val byFirstLetter = words2.groupBy { it[0] }
+println(byFirstLetter)  // {a: [apple, apricot, avocado], b: [banana], c: [cherry]}
+
+// Chunked and windowed
+val chunked = listOf(1, 2, 3, 4, 5, 6).chunked(2)
+println(chunked)  // [[1, 2], [3, 4], [5, 6]]
+
+// zip
+val zipped = listOf(1, 2, 3).zip(listOf("a", "b", "c"))
+println(zipped)  // [(1, a), (2, b), (3, c)]
+
+// flatMap
+val nested = listOf(listOf(1, 2), listOf(3, 4))
+println(nested.flatten())              // [1, 2, 3, 4]
+println(nested.flatMap { it.map { x -> x * 2 } })  // [2, 4, 6, 8]
+
+// distinct
+println(listOf(1, 1, 2, 3, 3).distinct())  // [1, 2, 3]
+
+// joinToString
+println(listOf("a", "b", "c").joinToString("-"))  // "a-b-c"
+
+// forEach with index
+listOf("a", "b", "c").forEachIndexed { i, v -> println("${i}: ${v}") }

@@ -1,0 +1,50 @@
+// Recursion
+// Classic recursive algorithms in Teak.
+
+// Sum a list recursively
+fun sumList(lst) {
+  if (lst.isEmpty()) return 0
+  return lst.get(0) + sumList(lst.drop(1))
+}
+println(sumList(listOf(1, 2, 3, 4, 5)))  // 15
+
+// Count leaves in a binary tree
+data class TreeNode(value, left, right)
+
+fun countLeaves(node) {
+  if (node == null) return 0
+  if (node.left == null && node.right == null) return 1
+  return countLeaves(node.left) + countLeaves(node.right)
+}
+
+val root = TreeNode(1,
+  TreeNode(2, TreeNode(4, null, null), TreeNode(5, null, null)),
+  TreeNode(3, null, null)
+)
+println(countLeaves(root))  // 3
+
+// Quicksort
+fun quicksort(lst) {
+  if (lst.size() <= 1) return lst
+  val pivot = lst.get(0)
+  val rest = lst.drop(1)
+  val smaller = quicksort(rest.filter { it <= pivot })
+  val larger  = quicksort(rest.filter { it > pivot })
+  return smaller + listOf(pivot) + larger
+}
+println(quicksort(listOf(3, 6, 8, 10, 1, 2, 1)))
+// [1, 1, 2, 3, 6, 8, 10]
+
+// Power function
+fun power(base, exp) {
+  if (exp == 0) return 1
+  return base * power(base, exp - 1)
+}
+println(power(2, 10))  // 1024
+
+// GCD (Euclidean algorithm)
+fun gcd(a, b) {
+  if (b == 0) return a
+  return gcd(b, a % b)
+}
+println(gcd(48, 18))  // 6

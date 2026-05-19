@@ -1,0 +1,28 @@
+// Test: JSON, base64, sha256
+
+// JSON parse
+val obj = jsonParse("{\"x\": 1, \"y\": \"hello\"}")
+assert(obj.x == 1, "jsonParse field failed")
+assert(obj.y == "hello", "jsonParse string field failed")
+
+// JSON stringify
+val json = jsonStringify(mapOf("name" to "teak"))
+assert(json.contains("\"name\""), "jsonStringify failed: got ${json}")
+assert(json.contains("\"teak\""), "jsonStringify value failed: got ${json}")
+
+// base64
+val encoded = base64Encode("hi")
+assert(encoded == "aGk=", "base64Encode failed: got ${encoded}")
+val decoded = base64Decode("aGk=")
+assert(decoded == "hi", "base64Decode failed: got ${decoded}")
+
+// sha256
+val hash = sha256("hello")
+assert(hash.length == 64, "sha256 length failed: got ${hash.length}")
+
+// type checks
+assert(isList(listOf(1, 2)), "isList failed")
+assert(isSet(setOf(1)), "isSet failed")
+assert(isMap(mapOf("a" to 1)), "isMap failed")
+
+println("11-json-and-encoding: all passed")

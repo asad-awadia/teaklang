@@ -1,0 +1,52 @@
+{
+  "name": "@teaklang/teak",
+  "version": "1.0.0",
+  "description": "Teak is a Kotlin-inspired scripting language that runs on Node.js",
+  "main": "interpreter.js",
+  "bin": {
+    "teak": "interpreter.js",
+    "teakc": "compiler.js"
+  },
+  "files": [
+    "interpreter.js",
+    "compiler.js",
+    "runtime.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asad-awadia/teak-lang.git"
+  },
+  "homepage": "https://teak-lang.aawadia.dev",
+  "bugs": {
+    "url": "https://github.com/asad-awadia/teak-lang/issues"
+  },
+  "scripts": {
+    "test": "node test/run.js"
+  },
+  "dependencies": {
+    "@teaklang/teak": "^1.0.0",
+    "bintrees": "^1.0.2",
+    "dayjs": "^1.11.20"
+  },
+  "keywords": [
+    "teak",
+    "language",
+    "interpreter",
+    "compiler",
+    "scripting-language",
+    "kotlin",
+    "scripting"
+  ],
+  "author": "Asad Awadia",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "sideEffects": false
+}

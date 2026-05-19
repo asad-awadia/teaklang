@@ -1,0 +1,61 @@
+// Functions
+// Regular functions, lambdas, default params, and recursion.
+
+// Basic function
+fun add(a, b) = a + b
+println(add(2, 3))  // 5
+
+// Function with block body and return
+fun max(a, b) {
+  if (a > b) return a
+  return b
+}
+println(max(10, 7))  // 10
+
+// Default parameters (must come at the end)
+fun greet(name = "World") = "Hello, $name!"
+println(greet())          // Hello, World!
+println(greet("Teak"))    // Hello, Teak!
+
+// Defaults can refer to earlier parameters
+fun volume(w, h = w, d = h) = w * h * d
+println(volume(3))        // 27  (3 * 3 * 3)
+println(volume(2, 3))     // 12  (2 * 3 * 3)
+println(volume(2, 3, 4))  // 24  (2 * 3 * 4)
+
+// Lambda (block form)
+val double = { x -> x * 2 }
+println(double(5))  // 10
+
+// Lambda with multiple params
+val addLambda = { a, b -> a + b }
+println(addLambda(3, 4))  // 7
+
+// Single-param lambda uses implicit 'it'
+val square = { it * it }
+println(square(6))  // 36
+
+// Anonymous function
+val triple = fun(x) = x * 3
+println(triple(4))  // 12
+
+// Trailing lambda - last arg moves outside parens
+listOf(1, 2, 3).forEach { println(it) }
+
+// fold with trailing lambda
+val sum = listOf(1, 2, 3, 4, 5).fold(0) { acc, v -> acc + v }
+println(sum)  // 15
+
+// Recursion
+fun factorial(n) {
+  if (n <= 1) return 1
+  return n * factorial(n - 1)
+}
+println(factorial(5))  // 120
+
+// Fibonacci
+fun fib(n) {
+  if (n <= 1) return n
+  return fib(n - 1) + fib(n - 2)
+}
+println(fib(10))  // 55

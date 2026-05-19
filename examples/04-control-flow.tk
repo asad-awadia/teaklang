@@ -1,0 +1,65 @@
+// Control Flow
+// if/else, when, for-in, while, break, and continue.
+
+val x = 7
+val y = 3
+
+// if/else expression
+val max = if (x > y) x else y
+println("max: ${max}")  // 7
+
+// when expression (like switch, but more powerful)
+val label = when (x) {
+  1 -> "one"
+  2 -> "two"
+  7 -> "seven"
+  else -> "other"
+}
+println("label: ${label}")  // seven
+
+// when with multiple matches
+val code = 404
+val status = when (code) {
+  200      -> "OK"
+  404, 403 -> "Client error"
+  500      -> "Server error"
+  else     -> "Unknown"
+}
+println("status: ${status}")  // Client error
+
+// when without a value (like if/else chain)
+val sign = when {
+  x < 0  -> "negative"
+  x == 0 -> "zero"
+  else   -> "positive"
+}
+println("sign: ${sign}")  // positive
+
+// for-in with range
+println("Counting 1 to 5:")
+for (i in 1..5) {
+  println(i)
+}
+
+// for-in with list
+println("Fruits:")
+for (fruit in listOf("apple", "banana", "cherry")) {
+  println(fruit)
+}
+
+// while loop
+var i = 0
+println("While loop:")
+while (i < 5) {
+  i += 1
+  println(i)
+}
+
+// break and continue
+println("Skip 3, stop at 7:")
+for (j in 1..10) {
+  if (j == 3) continue
+  if (j == 7) break
+  println(j)
+}
+// prints: 1, 2, 4, 5, 6

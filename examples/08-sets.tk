@@ -1,0 +1,41 @@
+// Sets
+// Immutable (setOf) and mutable (mutableSetOf) sets.
+
+// Creating sets
+val s = setOf(1, 2, 3, 2, 1)  // duplicates removed
+println(s)         // [1, 2, 3]
+println(s.size())  // 3
+
+val ms = mutableSetOf(1, 2, 3)
+
+// Access
+println(s.contains(2))  // true
+println(s.contains(99)) // false
+println(s.isEmpty())    // false
+
+// Mutation (mutable only)
+ms.add(4)
+println(ms)  // [1, 2, 3, 4]
+ms.remove(1)
+println(ms)  // [2, 3, 4]
+
+// Set operations
+val a = mutableSetOf(1, 2, 3)
+val b = mutableSetOf(2, 3, 4)
+
+println(a.union(b))       // [1, 2, 3, 4]
+println(a.intersect(b))   // [2, 3]
+println(a.subtract(b))    // [1]
+
+// Iteration
+var sum = 0
+setOf(10, 20, 30).forEach { sum += it }
+println(sum)  // 60
+
+// Filter
+val big = setOf(1, 2, 3, 4, 5).filter { it > 3 }
+println(big)  // [4, 5]
+
+// Conversion
+val list = setOf(3, 1, 2).toList()
+println(list)  // [1, 2, 3]

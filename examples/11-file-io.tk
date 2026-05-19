@@ -1,0 +1,47 @@
+// File I/O
+// Read, write, append, and stream files.
+
+// Write a file
+val f = File("example_output.txt")
+f.writeText("Hello, Teak!\n")
+
+// Append to it
+f.appendText("This is line 2.\n")
+f.appendText("This is line 3.\n")
+
+// Read entire file
+println(f.readText())
+
+// Read as stream of lines (lazy Sequence)
+f.readLines()
+  .map { it.toUpperCase() }
+  .forEach { println(it) }
+
+// File properties
+println("exists: ${f.exists()}")
+println("isFile: ${f.isFile()}")
+println("size: ${f.size()} bytes")
+println("lastModified: ${f.lastModified()}")
+
+// Copy and move
+f.copyTo("example_copy.txt")
+println(File("example_copy.txt").exists())  // true
+
+// Read JSON
+f.writeJson(mapOf("name" to "teak", "version" to "1.0"))
+val jsonData = f.readJson()
+println(jsonData.name)  // teak
+
+// Walk directory (lazy Sequence of File objects)
+File(".")
+  .walkTopDown()
+  .filter { it.isFile() }
+  .map { it.path }
+  .filter { it.includes(".tk") }
+  .take(5)
+  .forEach { println(it) }
+
+// Clean up
+f.delete()
+File("example_copy.txt").delete()
+println("cleaned up")

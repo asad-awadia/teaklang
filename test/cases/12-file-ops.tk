@@ -1,0 +1,48 @@
+// Test: file operations
+
+val testFile = File("test_output.tmp")
+
+// write and read
+testFile.writeText("hello world")
+assert(testFile.exists(), "file write failed")
+assert(testFile.isFile(), "isFile failed")
+
+val content = testFile.readText()
+assert(content == "hello world", "readText failed: got ${content}")
+
+// append
+testFile.appendText("\nline2")
+val appended = testFile.readText()
+assert(appended.contains("line2"), "appendText failed")
+
+// size
+assert(testFile.size() > 0, "file size failed")
+
+// lines - convert to list first to avoid sequence/file handle conflict
+val lines = testFile.readLines().toList()
+assert(lines.size() >= 2, "readLines failed: got ${lines.size()} lines")
+
+// lastModified
+assert(testFile.lastModified() > 0, "lastModified failed")
+
+// copy
+val copyFile = File("test_copy.tmp")
+testFile.copyTo(copyFile.path)
+assert(copyFile.exists(), "copyTo failed")
+val copyContent = copyFile.readText()
+assert(copyContent == appended, "copy content mismatch")
+
+// delete
+testFile.delete()
+copyFile.delete()
+assert(!testFile.exists(), "delete failed")
+assert(!copyFile.exists(), "copy delete failed")
+
+// directory ops
+val testDir = File("test_dir_tmp")
+testDir.mkdir()
+assert(testDir.exists(), "mkdir failed")
+assert(testDir.isDirectory(), "isDirectory failed")
+testDir.delete()
+
+println("12-file-ops: all passed")

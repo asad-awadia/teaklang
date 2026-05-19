@@ -1,0 +1,31 @@
+// Test: ranges and sequences
+
+// range iteration
+var sum = 0
+for (i in 1..10) {
+  sum += i
+}
+assert(sum == 55, "range iteration failed: got ${sum}")
+
+// range with filter via list sequence
+val evens = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).asSequence().filter { it % 2 == 0 }.toList()
+assert(evens.size() == 5, "range filter failed")
+assert(evens.get(0) == 2, "range filter first failed")
+
+// sequence pipeline
+val result = listOf(1, 2, 3, 4, 5)
+  .asSequence()
+  .filter { it % 2 == 1 }
+  .map { it * it }
+  .take(2)
+  .sum()
+assert(result == 10, "sequence pipeline failed: got ${result}")
+
+// sequence terminal ops
+val seqSum = listOf(10, 20, 30).asSequence().sum()
+assert(seqSum == 60, "sequence sum failed")
+
+val seqCount = listOf(1, 2, 3, 4).asSequence().count { it > 2 }
+assert(seqCount == 2, "sequence count failed")
+
+println("10-ranges: all passed")

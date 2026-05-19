@@ -1,0 +1,86 @@
+// Test: immutable and mutable lists, list operations
+
+// immutable list
+val nums = listOf(1, 2, 3, 4, 5)
+if (nums.size() != 5) throw "listOf size failed"
+if (nums.get(0) != 1) throw "listOf get failed"
+if (nums.first() != 1) throw "first failed"
+if (nums.last() != 5) throw "last failed"
+if (nums.head() != 1) throw "head failed"
+if (!nums.contains(3)) throw "contains failed"
+if (nums.indexOf(4) != 3) throw "indexOf failed"
+if (nums.isEmpty()) throw "isEmpty failed"
+
+// mutable list
+val items = mutableListOf(3, 1, 2)
+items.add(4)
+if (items.size() != 4) throw "add failed"
+items.set(0, 99)
+if (items.get(0) != 99) throw "set failed"
+items.remove(1)
+if (items.contains(1) != false) throw "remove failed"
+items.removeAt(0)
+if (items.get(0) != 2) throw "removeAt failed"
+
+// functional ops
+val doubled = listOf(1, 2, 3).map { it * 2 }
+if (doubled.size() != 3) throw "map size failed"
+if (doubled.get(0) != 2) throw "map value failed"
+
+val evens = listOf(1, 2, 3, 4, 5, 6).filter { it % 2 == 0 }
+if (evens.size() != 3) throw "filter failed"
+if (evens.get(0) != 2) throw "filter value failed"
+
+val sum = listOf(1, 2, 3, 4).fold(0) { acc, v -> acc + v }
+if (sum != 10) throw "fold failed"
+
+val total = listOf(10, 20, 30).sum()
+if (total != 60) throw "sum failed"
+
+// slicing
+val first3 = listOf(1, 2, 3, 4, 5).take(3)
+if (first3.size() != 3) throw "take failed"
+
+val last2 = listOf(1, 2, 3, 4, 5).drop(3)
+if (last2.size() != 2) throw "drop failed"
+if (last2.get(0) != 4) throw "drop value failed"
+
+val rev = listOf(1, 2, 3).reversed()
+if (rev.get(0) != 3) throw "reversed failed"
+
+// sorting
+val sorted = mutableListOf(3, 1, 4, 1, 5).sorted()
+if (sorted.get(0) != 1) throw "sorted failed"
+if (sorted.get(4) != 5) throw "sorted last failed"
+
+val desc = mutableListOf(3, 1, 4).sortedDescending()
+if (desc.get(0) != 4) throw "sortedDescending failed"
+
+// distinct
+val uniq = listOf(1, 1, 2, 2, 3).distinct()
+if (uniq.size() != 3) throw "distinct failed"
+
+// any / all / none
+if (!listOf(1, 2, 3).any { it > 2 }) throw "any failed"
+if (!listOf(1, 2, 3).all { it > 0 }) throw "all failed"
+if (!listOf(1, 2, 3).none { it > 10 }) throw "none failed"
+
+// find
+val found = listOf(1, 2, 3, 4).find { it > 2 }
+if (found != 3) throw "find failed: got ${found}"
+
+// count
+val c = listOf(1, 2, 3, 4, 5).count { it % 2 == 0 }
+if (c != 2) throw "count failed"
+
+// forEach
+var feSum = 0
+listOf(1, 2, 3).forEach { feSum += it }
+if (feSum != 6) throw "forEach failed"
+
+// rest
+val rest = listOf(1, 2, 3).rest()
+if (rest.size() != 2) throw "rest failed"
+if (rest.get(0) != 2) throw "rest value failed"
+
+println("06-lists: all passed")

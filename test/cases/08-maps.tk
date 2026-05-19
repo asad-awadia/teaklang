@@ -1,0 +1,55 @@
+// Test: immutable and mutable maps
+
+// immutable map
+val m = mapOf("a" to 1, "b" to 2, "c" to 3)
+assert(m.size() == 3, "mapOf size failed")
+assert(m.get("a") == 1, "map get failed")
+assert(m.get("missing") == null, "map missing key failed")
+assert(m.containsKey("b"), "containsKey failed")
+assert(m.containsValue(3), "containsValue failed")
+assert(!m.isEmpty(), "map isEmpty failed")
+
+// mutable map
+val mm = mutableMapOf("x" to 10)
+mm.put("y", 20)
+assert(mm.size() == 2, "mutableMap put failed")
+mm.remove("x")
+assert(!mm.containsKey("x"), "mutableMap remove failed")
+
+// keys and values
+val k = mapOf("a" to 1, "b" to 2).keys()
+assert(k.size() == 2, "keys failed")
+assert(k.contains("a"), "keys value failed")
+
+val v = mapOf("a" to 1, "b" to 2).values()
+assert(v.size() == 2, "values failed")
+assert(v.contains(1), "values value failed")
+
+// functional ops
+val doubled = mapOf("a" to 1, "b" to 2).mapValues { it * 2 }
+assert(doubled.get("a") == 2, "mapValues failed")
+assert(doubled.get("b") == 4, "mapValues b failed")
+
+val filtered = mapOf("a" to 1, "b" to 2, "c" to 3).filter { it.value > 1 }
+assert(filtered.size() == 2, "map filter failed")
+
+val mapped = mapOf("a" to 1, "b" to 2).map { "${it.key}=${it.value}" }
+assert(mapped.size() == 2, "map map failed")
+
+val anyLarge = mapOf("a" to 1, "b" to 20).any { it.value > 10 }
+assert(anyLarge, "map any failed")
+
+val allPositive = mapOf("a" to 1, "b" to 2).all { it.value > 0 }
+assert(allPositive, "map all failed")
+
+// forEach - forEach passes (key, value) as two args
+var sum = 0
+mapOf("a" to 10, "b" to 20).forEach { k, v -> sum += v }
+assert(sum == 30, "map forEach failed")
+
+// conversion
+val editable = mapOf("a" to 1).toMutableMap()
+editable.put("b", 2)
+assert(editable.size() == 2, "toMutableMap failed")
+
+println("08-maps: all passed")

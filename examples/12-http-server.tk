@@ -1,0 +1,91 @@
+// HTTP Server
+// Build web servers with routing, middleware, path params, and query params.
+
+// This example starts a server on port 9876.
+// Run it with: teak 12-http-server.tk
+// Then visit: http://localhost:9876/
+//             http://localhost:9876/users/42
+//             http://localhost:9876/search?q=hello
+
+data class Todo(id, title, done)
+
+val todos = mutableListOf(
+  Todo(1, "Learn Teak", true),
+  Todo(2, "Build something", false),
+  Todo(3, "Share it", false)
+)
+
+val server = HttpServer(9876)
+
+// Middleware: log every request
+server.use { ctx, next ->
+  println("${ctx.method} ${ctx.path}")
+  next()
+}
+
+// Middleware: CORS headers
+server.use { ctx, next ->
+  ctx.header("Access-Control-Allow-Origin", "*")
+  next()
+}
+
+// Serve HTML
+server.get("/") {
+  it.html("""
+    <!DOCTYPE html>
+    <html>
+      <head><title>Teak Todos</title></head>
+      <body>
+        <h1>Todo API</h1>
+        <p>GET /todos — list all todos</p>
+        <p>GET /todos/:id — get one todo</p>
+        <p>GET /search?q=... — search todos</p>
+      </body>
+    </html>
+  """)
+}
+
+// List all todos, with optional filter
+server.get("/todos") {
+  val filter = it.query.get("done")
+  val result = if (filter == "true")
+    todos.filter { t -> t.done }
+  else
+    todos
+  it.json(mutableMapOf("todos" to result))
+}
+
+// Get a single todo by path param
+server.get("/todos/:id") {
+  val id = toInt(it.params.get("id"))
+  val todo = todos.find { t -> t.id == id }
+  if (todo == null)
+    it.status(404).json(mutableMapOf("error" to "not found"))
+  else
+    it.json(todo)
+}
+
+// Search todos by query param
+server.get("/search") {
+  val q = it.query.get("q")
+  val results = todos.filter { t -> t.title.includes(q) }
+  it.json(mutableMapOf("query" to q, "results" to results))
+}
+
+// Create a todo
+server.post("/todos") {
+  val nextId = todos.size() + 1
+  val newTodo = Todo(nextId, it.body.title, false)
+  todos.add(newTodo)
+  it.status(201).json(newTodo)
+}
+
+// Delete a todo
+server.delete("/todos/:id") {
+  val id = toInt(it.params.get("id"))
+  todos.remove(todos.find { t -> t.id == id })
+  it.status(204).text("")
+}
+
+println("Server starting on http://localhost:9876")
+server.start()

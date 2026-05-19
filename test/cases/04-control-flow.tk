@@ -1,0 +1,73 @@
+// Test: if/else, when, for, while, break, continue
+
+// if/else
+val max = if (10 > 3) 10 else 3
+assert(max == 10, "if/else failed")
+
+val min = if (10 < 3) 10 else 3
+assert(min == 3, "if/else else-branch failed")
+
+// when with value
+val label = when (200) {
+  200      -> "OK"
+  404      -> "Not found"
+  else     -> "Unknown"
+}
+assert(label == "OK", "when failed: got ${label}")
+
+val label2 = when (404) {
+  200      -> "OK"
+  404, 403 -> "Client error"
+  else     -> "Unknown"
+}
+assert(label2 == "Client error", "when multi-match failed")
+
+// when without value (like if/else chain)
+val x = -5
+val sign = when {
+  x < 0  -> "negative"
+  x == 0 -> "zero"
+  else   -> "positive"
+}
+assert(sign == "negative", "when-cond failed")
+
+// for-in with range
+var sum = 0
+for (i in 1..5) {
+  sum += i
+}
+assert(sum == 15, "for-in range failed: got ${sum}")
+
+// for-in with list
+var count = 0
+for (item in listOf("a", "b", "c")) {
+  count += 1
+}
+assert(count == 3, "for-in list failed")
+
+// while
+var i = 0
+var whileSum = 0
+while (i < 5) {
+  i += 1
+  whileSum += i
+}
+assert(whileSum == 15, "while failed: got ${whileSum}")
+
+// continue
+var skipSum = 0
+for (j in 1..10) {
+  if (j == 5) continue
+  skipSum += j
+}
+assert(skipSum == 50, "continue failed: got ${skipSum}")
+
+// break
+var breakSum = 0
+for (k in 1..100) {
+  breakSum += k
+  if (breakSum >= 15) break
+}
+assert(breakSum == 15, "break failed: got ${breakSum}")
+
+println("04-control-flow: all passed")

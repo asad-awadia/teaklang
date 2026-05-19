@@ -1,0 +1,51 @@
+// Maps
+// Immutable (mapOf) and mutable (mutableMapOf) maps. Entries use the 'to' operator.
+
+// Creating maps
+val m = mapOf("a" to 1, "b" to 2, "c" to 3)
+println(m)  // {a: 1, b: 2, c: 3}
+
+val mm = mutableMapOf("x" to 10)
+
+// Access
+println(m.get("a"))              // 1
+println(m.get("missing"))        // null
+println(m.containsKey("b"))      // true
+println(m.containsValue(3))      // true
+println(m.size())                // 3
+
+// Keys and values
+println(m.keys())    // [a, b, c]
+println(m.values())  // [1, 2, 3]
+
+// Mutation (mutable only)
+mm.put("y", 20)
+mm.remove("x")
+println(mm)  // {y: 20}
+
+// Functional: map, filter
+val doubled = m.mapValues { it * 2 }
+println(doubled)  // {a: 2, b: 4, c: 6}
+
+val upper = m.mapKeys { it.toUpperCase() }
+println(upper)  // {A: 1, B: 2, C: 3}
+
+val filtered = m.filter { it.value > 1 }
+println(filtered)  // {b: 2, c: 3}
+
+val entries = m.map { "${it.key}=${it.value}" }
+println(entries)  // [a=1, b=2, c=3]
+
+// Predicates
+println(m.any { it.value > 2 })   // true
+println(m.all { it.value > 0 })   // true
+
+// Iteration
+var sum = 0
+mapOf("a" to 10, "b" to 20, "c" to 30).forEach { k, v -> sum += v }
+println(sum)  // 60
+
+// Conversion
+val editable = m.toMutableMap()
+editable.put("d", 4)
+println(editable)  // {a: 1, b: 2, c: 3, d: 4}

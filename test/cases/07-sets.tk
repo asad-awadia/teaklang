@@ -1,0 +1,40 @@
+// Test: immutable and mutable sets
+
+// immutable set
+val s = setOf(1, 2, 3)
+assert(s.size() == 3, "setOf size failed")
+assert(s.contains(2), "set contains failed")
+assert(!s.isEmpty(), "set isEmpty failed")
+
+// mutable set
+val ms = mutableSetOf(1, 2, 3)
+ms.add(4)
+assert(ms.size() == 4, "set add failed")
+assert(ms.contains(4), "set add contains failed")
+ms.remove(1)
+assert(!ms.contains(1), "set remove failed")
+
+// set operations
+val a = mutableSetOf(1, 2, 3)
+val b = mutableSetOf(2, 3, 4)
+val u = a.union(b)
+assert(u.size() == 4, "union failed: got ${u.size()}")
+
+val inter = a.intersect(b)
+assert(inter.size() == 2, "intersect failed")
+assert(inter.contains(2), "intersect value failed")
+
+val diff = a.subtract(b)
+assert(diff.size() == 1, "subtract failed")
+assert(diff.contains(1), "subtract value failed")
+
+// forEach
+var sum = 0
+setOf(10, 20, 30).forEach { sum += it }
+assert(sum == 60, "set forEach failed")
+
+// filter
+val filtered = setOf(1, 2, 3, 4, 5).filter { it > 3 }
+assert(filtered.size() == 2, "set filter failed")
+
+println("07-sets: all passed")

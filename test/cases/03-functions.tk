@@ -1,0 +1,50 @@
+// Test: functions, lambdas, default params
+
+fun add(a, b) = a + b
+assert(add(2, 3) == 5, "add failed")
+
+fun greet(name = "Guest") = "Hello, $name!"
+assert(greet() == "Hello, Guest!", "default param failed")
+assert(greet("Ada") == "Hello, Ada!", "explicit param failed")
+
+fun volume(w, h = w, d = h) = w * h * d
+assert(volume(3) == 27, "chained defaults failed: got ${volume(3)}")
+assert(volume(2, 3) == 18, "partial defaults failed")
+assert(volume(2, 3, 4) == 24, "no defaults failed")
+
+// single-expression body
+fun double(n) = n * 2
+assert(double(7) == 14, "single-expr failed")
+
+// block body with return
+fun max(a, b) {
+  if (a > b) return a
+  return b
+}
+assert(max(3, 9) == 9, "max failed")
+
+// lambda
+val triple = { x -> x * 3 }
+assert(triple(4) == 12, "lambda failed")
+
+// anonymous function
+val clamp = fun(v, lo, hi) {
+  if (v < lo) return lo
+  if (v > hi) return hi
+  return v
+}
+assert(clamp(15, 0, 10) == 10, "clamp failed")
+assert(clamp(-5, 0, 10) == 0, "clamp lower failed")
+
+// implicit 'it' parameter
+val square = { it * it }
+assert(square(5) == 25, "it-param failed")
+
+// recursion
+fun factorial(n) {
+  if (n <= 1) return 1
+  return n * factorial(n - 1)
+}
+assert(factorial(5) == 120, "factorial failed")
+
+println("03-functions: all passed")

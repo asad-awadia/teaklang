@@ -1,0 +1,39 @@
+// Strings
+// Interpolation, methods, and triple-quoted raw strings.
+
+val lang = "teak"
+
+// Interpolation with $name
+println("Hello from ${lang}!")
+
+// Interpolation with ${expr}
+println("2 + 2 = ${2 + 2}")
+
+// Interpolation with method calls
+println("upper: ${lang.toUpperCase()}")
+
+// String methods
+val s = "  hello, world  "
+println(s.trim())                          // "hello, world"
+println(s.trim().split(",").joinToString("-"))     // "hello- world"
+println("hello".startsWith("he"))          // true
+println("test".includes("es"))             // true
+println("abc".toUpperCase())               // "ABC"
+println("ABC".toLowerCase())               // "abc"
+println("hello".length)                   // 5
+println("hello".replace("l", "r"))         // "herro"
+
+// Triple-quoted raw string (multiline, no escape needed)
+val html = """
+  <html>
+    <body>
+      <h1>Hello from ${lang}</h1>
+    </body>
+  </html>
+"""
+println(html)
+
+// joinToString on lists
+val words = listOf("the", "quick", "fox")
+println(words.joinToString(" "))                // "the quick fox"
+println(words.joinToString(", ", "[", "]"))     // "[the, quick, fox]"

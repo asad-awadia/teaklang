@@ -1,0 +1,31 @@
+// Test: strings, interpolation, methods
+
+val lang = "teak"
+val greeting = "Hello from $lang!"
+assert(greeting == "Hello from teak!", "interpolation failed")
+
+val expr = "2 + 2 = ${2 + 2}"
+assert(expr == "2 + 2 = 4", "expr interpolation failed")
+
+val upper = "hello".toUpperCase()
+assert(upper == "HELLO", "toUpperCase failed")
+
+val trimmed = "  hi  ".trim()
+assert(trimmed == "hi", "trim failed")
+
+val parts = "a,b,c".split(",")
+assert(parts.size() == 3, "split failed")
+assert(parts.get(0) == "a", "split element failed")
+
+assert("hello".startsWith("he"), "startsWith failed")
+assert("test".includes("es"), "includes failed")
+
+val joined = listOf("a", "b", "c").joinToString("-")
+assert(joined == "a-b-c", "joinToString failed: got ${joined}")
+
+// triple-quoted raw string
+val raw = """line1
+line2"""
+assert(raw.contains("line1"), "triple-quote failed")
+
+println("02-strings: all passed")

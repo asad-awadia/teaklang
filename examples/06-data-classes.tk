@@ -1,0 +1,52 @@
+// Data Classes
+// Define structured data with automatic fields, toString, and receiver functions.
+
+// Basic data class
+data class Point(x, y)
+
+val p = Point(3, 4)
+println(p)       // Point(x=3, y=4)
+println(p.x)     // 3
+
+// Data class with default values
+data class User(name, age = 18, active = true)
+
+val u1 = User("Ada")
+println(u1)   // User(name=Ada, age=18, active=true)
+
+val u2 = User("Bob", 25, false)
+println(u2)   // User(name=Bob, age=25, active=false)
+
+// Receiver functions - attach methods to data class types
+fun (pt Point) distanceTo(other) =
+  sqrt((pt.x - other.x) * (pt.x - other.x) +
+       (pt.y - other.y) * (pt.y - other.y))
+
+fun (pt Point) translate(dx, dy) = Point(pt.x + dx, pt.y + dy)
+
+val a = Point(0, 0)
+val b = Point(3, 4)
+println(a.distanceTo(b))  // 5
+println(a.translate(1, 2))  // Point(x=1, y=2)
+
+// Vec2 with multiple receiver methods
+data class Vec2(x, y)
+
+fun (v Vec2) length() = sqrt(v.x * v.x + v.y * v.y)
+fun (v Vec2) add(other) = Vec2(v.x + other.x, v.y + other.y)
+fun (v Vec2) scale(s) = Vec2(v.x * s, v.y * s)
+fun (v Vec2) dot(other) = v.x * other.x + v.y * other.y
+fun (v Vec2) normalize() = v.scale(1.0 / v.length())
+
+val v = Vec2(3, 4)
+println(v)             // Vec2(x=3, y=4)
+println(v.length())    // 5
+println(v.add(Vec2(1, 2)))    // Vec2(x=4, y=6)
+println(v.scale(2))           // Vec2(x=6, y=8)
+println(v.dot(Vec2(1, 0)))    // 3
+println(v.normalize())        // Vec2(x=0.6, y=0.8)
+
+// Sorting data class instances with receiver methods
+val points = mutableListOf(Vec2(3,4), Vec2(1,1), Vec2(0,5))
+val sorted = points.sortedBy { it.length() }
+sorted.forEach { println("${it.x},${it.y} len=${it.length()}") }

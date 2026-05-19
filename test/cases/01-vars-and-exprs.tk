@@ -1,0 +1,38 @@
+// Test: variables, expressions, operators
+
+val a = 10
+val b = 3
+val sum = a + b
+val diff = a - b
+val prod = a * b
+val quot = a / b
+val mod = a % b
+
+assert(sum == 13, "sum failed")
+assert(diff == 7, "diff failed")
+assert(prod == 30, "prod failed")
+assert(quot == 10 / 3, "quot failed")
+assert(mod == 1, "mod failed")
+
+// compound assignment
+var x = 5
+x += 3
+x -= 2
+x *= 4
+x /= 6
+assert(x == 4, "compound assignment failed: got ${x}")
+
+// booleans and logic
+val t = true
+val f = false
+assert(!(t && f), "&& failed")
+assert(t || f, "|| failed")
+assert(!f, "! failed")
+assert(t == t, "== failed")
+assert(t != f, "!= failed")
+
+// null check
+val n = null
+assert(n == null, "null check failed")
+
+println("01-vars-and-exprs: all passed")

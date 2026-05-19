@@ -1,0 +1,156 @@
+{
+  "fun-decl": {
+    "prefix": "fun",
+    "body": ["fun ${1:functionName}(${2:params}) {", "\t$0", "}"],
+    "description": "Declare a Teak function"
+  },
+  "fun-receiver": {
+    "prefix": "funr",
+    "body": ["fun(${1:self} ${2:TypeName}) ${3:methodName}(${4:params}) {", "\t$0", "}"],
+    "description": "Declare a Teak receiver method"
+  },
+  "fun-expr": {
+    "prefix": "fune",
+    "body": ["fun ${1:name}(${2:params}) = ${3:expression}"],
+    "description": "Declare a single-expression Teak function"
+  },
+  "data-class": {
+    "prefix": "dc",
+    "body": ["data class ${1:Name}(${2:fields})"],
+    "description": "Declare a Teak data class"
+  },
+  "val": {
+    "prefix": "val",
+    "body": ["val ${1:name} = ${2:value}"],
+    "description": "Declare an immutable variable"
+  },
+  "var": {
+    "prefix": "var",
+    "body": ["var ${1:name} = ${2:value}"],
+    "description": "Declare a mutable variable"
+  },
+  "if": {
+    "prefix": "if",
+    "body": ["if (${1:condition}) {", "\t$0", "}"],
+    "description": "If statement"
+  },
+  "if-else": {
+    "prefix": "ife",
+    "body": ["if (${1:condition}) {", "\t${2:// then}", "} else {", "\t$0", "}"],
+    "description": "If-else statement"
+  },
+  "when": {
+    "prefix": "when",
+    "body": [
+      "when (${1:value}) {",
+      "\t${2:caseValue} -> ${3:result}",
+      "\telse -> ${4:defaultResult}",
+      "}"
+    ],
+    "description": "When expression (pattern match)"
+  },
+  "for-in": {
+    "prefix": "for",
+    "body": ["for (${1:item} in ${2:collection}) {", "\t$0", "}"],
+    "description": "For-in loop"
+  },
+  "while": {
+    "prefix": "while",
+    "body": ["while (${1:condition}) {", "\t$0", "}"],
+    "description": "While loop"
+  },
+  "range": {
+    "prefix": "range",
+    "body": ["${1:start}..${2:end}"],
+    "description": "Integer range"
+  },
+  "lambda": {
+    "prefix": "lam",
+    "body": ["{ ${1:it} -> ${2:body} }"],
+    "description": "Lambda expression"
+  },
+  "lambda-it": {
+    "prefix": "lami",
+    "body": ["{ ${0:body} }"],
+    "description": "Lambda with implicit 'it' parameter"
+  },
+  "println": {
+    "prefix": "pl",
+    "body": ["println(${1:value})"],
+    "description": "Print to stdout"
+  },
+  "httpget": {
+    "prefix": "hget",
+    "body": ["val ${1:result} = httpGet(${2:\"url\"})"],
+    "description": "HTTP GET request"
+  },
+  "httppost": {
+    "prefix": "hpost",
+    "body": ["val ${1:result} = httpPost(${2:\"url\"}, ${3:body})"],
+    "description": "HTTP POST request"
+  },
+  "httpserver": {
+    "prefix": "hserver",
+    "body": [
+      "val ${1:server} = HttpServer(${2:8080})",
+      "${1:server}.get(\"${3:/path}\") { ctx ->",
+      "\tctx.text(\"${4:Hello}\")  ",
+      "}",
+      "${1:server}.start()"
+    ],
+    "description": "Create and start an HTTP server"
+  },
+  "file-read": {
+    "prefix": "fread",
+    "body": ["val ${1:content} = File(\"${2:path}\").readText()"],
+    "description": "Read a file as text"
+  },
+  "file-write": {
+    "prefix": "fwrite",
+    "body": ["File(\"${1:path}\").writeText(${2:content})"],
+    "description": "Write text to a file"
+  },
+  "mutable-list": {
+    "prefix": "ml",
+    "body": ["val ${1:list} = mutableListOf(${2})"],
+    "description": "Create a mutable list"
+  },
+  "list-of": {
+    "prefix": "lo",
+    "body": ["val ${1:list} = listOf(${2})"],
+    "description": "Create an immutable list"
+  },
+  "mutable-map": {
+    "prefix": "mm",
+    "body": ["val ${1:map} = mutableMapOf()"],
+    "description": "Create a mutable map"
+  },
+  "pair": {
+    "prefix": "pair",
+    "body": ["Pair(${1:key}, ${2:value})"],
+    "description": "Create a Pair"
+  },
+  "chan": {
+    "prefix": "chan",
+    "body": ["val ${1:ch} = chan()"],
+    "description": "Create a channel"
+  },
+  "go": {
+    "prefix": "go",
+    "body": ["go {", "\t$0", "}"],
+    "description": "Launch goroutine-style async block"
+  },
+  "waitgroup": {
+    "prefix": "wg",
+    "body": [
+      "val ${1:wg} = waitGroup()",
+      "${1:wg}.add(${2:1})",
+      "go {",
+      "\t$0",
+      "\t${1:wg}.done()",
+      "}",
+      "${1:wg}.wait()"
+    ],
+    "description": "WaitGroup pattern"
+  }
+}

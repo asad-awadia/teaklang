@@ -1,0 +1,63 @@
+{
+  "name": "teak-lang",
+  "displayName": "Teak Language",
+  "description": "IntelliSense, syntax highlighting, autocompletion, and parameter info for the Teak language (.tk files)",
+  "version": "0.1.0",
+  "publisher": "teak-lang",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Programming Languages"],
+  "activationEvents": [
+    "onLanguage:teak"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "teak",
+        "aliases": ["Teak", "teak"],
+        "extensions": [".tk"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "teak",
+        "scopeName": "source.teak",
+        "path": "./syntaxes/teak.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "teak.runFile",
+        "title": "Teak: Run Current File"
+      },
+      {
+        "command": "teak.compileFile",
+        "title": "Teak: Compile Current File to JS"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "teak.runFile",
+        "key": "ctrl+f5",
+        "mac": "cmd+f5",
+        "when": "editorLangId == teak"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "teak",
+        "path": "./snippets/teak.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "echo done",
+    "lint": "echo ok"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0"
+  }
+}

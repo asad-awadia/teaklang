@@ -1,0 +1,30 @@
+// Test: math functions and time functions
+
+// math
+assert(abs(-5) == 5, "abs failed")
+assert(abs(5) == 5, "abs positive failed")
+
+assert(floor(2.9) == 2, "floor failed")
+assert(ceil(2.1) == 3, "ceil failed")
+assert(round(2.5) == 3, "round failed")
+
+assert(sqrt(16.0) == 4, "sqrt failed")
+assert(pow(2, 10) == 1024, "pow failed")
+
+assert(max(3, 7) == 7, "max failed")
+assert(min(3, 7) == 3, "min failed")
+
+assert(toInt(3.9) == 3, "toInt failed")
+
+val r = random()
+assert(r >= 0 && r < 1, "random out of range: ${r}")
+
+// time
+val t = now()
+assert(t > 0, "now failed: got ${t}")
+
+val formatted = formatTime(t)
+assert(formatted != null, "formatTime returned null")
+assert(formatted.length >= 10, "formatTime too short: ${formatted}")
+
+println("09-math-and-time: all passed")

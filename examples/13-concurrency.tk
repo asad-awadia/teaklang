@@ -1,0 +1,42 @@
+// Concurrency
+// `go {}` runs code on the event loop. Channels and wait groups coordinate.
+
+// go — run on the event loop without blocking
+go {
+  sleep(500)
+  println("This runs after 500ms")
+}
+println("This prints immediately")
+
+// Channel — communicate between concurrent tasks
+val ch = chan()
+
+go {
+  for (i in 1..5) {
+    ch.send(i)
+    sleep(100)
+  }
+  ch.close()
+}
+
+// Receive values as they arrive
+while (true) {
+  val v = ch.receive()
+  if (v == null) break
+  println("received: ${v}")
+}
+
+// WaitGroup — coordinate multiple workers
+val wg = waitGroup()
+
+for (w in 1..3) {
+  wg.add(1)
+  go {
+    sleep(100 * w)
+    println("worker ${w} done")
+    wg.done()
+  }
+}
+
+wg.wait()
+println("all workers finished")

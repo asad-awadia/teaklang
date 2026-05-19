@@ -1,0 +1,38 @@
+// Test: data classes, default fields, receiver functions
+
+data class Point(x, y)
+data class User(name, age = 18, active = true)
+
+val p = Point(3, 4)
+assert(p.x == 3, "field access failed")
+assert(p.y == 4, "field access failed")
+
+val u = User("Ada")
+assert(u.name == "Ada", "data class field failed")
+assert(u.age == 18, "default field failed")
+assert(u.active == true, "default bool field failed")
+
+val u2 = User("Bob", 25, false)
+assert(u2.age == 25, "explicit field failed")
+assert(u2.active == false, "explicit bool field failed")
+
+// receiver functions
+fun (pt Point) distanceTo(other) =
+  sqrt((pt.x - other.x) * (pt.x - other.x) +
+       (pt.y - other.y) * (pt.y - other.y))
+
+val a = Point(0, 0)
+val b = Point(3, 4)
+val dist = a.distanceTo(b)
+assert(dist == 5, "receiver function failed: got ${dist}")
+
+fun (pt Point) translate(dx, dy) = Point(pt.x + dx, pt.y + dy)
+val moved = Point(1, 2).translate(10, 20)
+assert(moved.x == 11, "translate x failed")
+assert(moved.y == 22, "translate y failed")
+
+// toString check - verify it prints correctly
+val s = Point(1, 2).toString()
+assert(s == "Point(x=1, y=2)", "toString failed: got ${s}")
+
+println("05-data-classes: all passed")

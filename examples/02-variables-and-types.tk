@@ -1,0 +1,19 @@
+// Variables and Types
+// Teak has immutable (val) and mutable (var) bindings.
+
+// Immutable - cannot be reassigned
+val name = "teak"
+val pi = 3.14159
+val active = true
+val nothing = null
+
+// Mutable - can be reassigned
+var count = 0
+count = 1
+count += 1    // compound assignment: count is now 2
+count *= 3    // count is now 6
+
+println("name: ${name}")
+println("pi: ${pi}")
+println("active: ${active}")
+println("count: ${count}")

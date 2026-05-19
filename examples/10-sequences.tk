@@ -1,0 +1,63 @@
+// Sequences
+// Lazy evaluation pipelines. Nothing runs until a terminal operation is called.
+
+// Basic sequence pipeline
+val result = listOf(1, 2, 3, 4, 5)
+  .asSequence()
+  .filter { it % 2 == 1 }    // keep odd: 1, 3, 5
+  .map { it * it }            // square: 1, 9, 25
+  .take(2)                    // first 2: 1, 9
+  .sum()                      // 10
+println(result)  // 10
+
+// Lazy means intermediate ops don't allocate until terminal op runs
+val big = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+  .asSequence()
+  .filter { it % 3 == 0 }
+  .map { it * 2 }
+  .take(3)
+  .toList()
+println(big)  // [6, 12, 18]
+
+// Terminal operations
+val nums = listOf(3, 1, 4, 1, 5, 9, 2, 6)
+
+println(nums.asSequence().sum())      // 31
+println(nums.asSequence().count())    // 8
+println(nums.asSequence().average())  // 3.875
+println(nums.asSequence().maxOrNull())  // 9
+println(nums.asSequence().minOrNull())  // 1
+
+// first and last
+println(listOf(10, 20, 30).asSequence().first())  // 10
+println(listOf(10, 20, 30).asSequence().last())   // 30
+
+// groupBy
+val words = listOf("apple", "banana", "apricot", "cherry", "avocado")
+val grouped = words.asSequence().groupBy { it[0] }
+println(grouped)
+
+// distinct
+println(listOf(1, 1, 2, 3, 3).asSequence().distinct().toList())  // [1, 2, 3]
+
+// drop and take while
+println(listOf(1, 2, 3, 4, 5).asSequence().dropWhile { it < 3 }.toList())  // [3, 4, 5]
+println(listOf(1, 2, 3, 4, 5).asSequence().takeWhile { it < 4 }.toList())  // [1, 2, 3]
+
+// zip
+val zipped = listOf(1, 2, 3).asSequence().zip(listOf("a", "b", "c")).toList()
+println(zipped)  // [(1, a), (2, b), (3, c)]
+
+// chunked
+println(listOf(1, 2, 3, 4, 5, 6).asSequence().chunked(2).toList())  // [[1, 2], [3, 4], [5, 6]]
+
+// windowed
+println(listOf(1, 2, 3, 4, 5).asSequence().windowed(3).toList())  // [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
+
+// onEach - peek into the pipeline without changing it
+val debug = listOf(1, 2, 3)
+  .asSequence()
+  .onEach { println("processing: ${it}") }
+  .map { it * 2 }
+  .toList()
+println(debug)  // [2, 4, 6]
