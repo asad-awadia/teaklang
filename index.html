@@ -1,0 +1,1375 @@
+<html data-theme="dark" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teak Language — Documentation</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='%23FFA500'><path d='M349.4 44.6c5.9-13.7 1.5-29.7-10.6-38.5s-28.6-8-39.9 1.8l-256 224c-10 8.8-14 22.8-10.1 35.8S49.7 288 64 288h128V467.4c0 13.7 4.5 29.7 10.6 38.5s28.6 8 39.9-1.8l256-224c10-8.8 14-22.8 10.1-35.8S462.3 224 448 224H320l29.4-179.4z'/></svg>">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root {
+      --brand: #7c3aed;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1200px 800px at 80% -20%, rgba(124, 58, 237, .15), transparent),
+        radial-gradient(1000px 600px at -10% 10%, rgba(34, 211, 238, .12), transparent), #0a0a0b;
+    }
+
+    .navbar {
+      backdrop-filter: blur(10px);
+      background-color: rgba(10, 10, 11, .7) !important;
+      border-bottom: 1px solid #1e222f;
+    }
+
+    .hero {
+      background: linear-gradient(180deg, #0a0a0b 0%, #0f1117 100%);
+    }
+
+    .hero .title {
+      background: linear-gradient(90deg, #a78bfa, #22d3ee 60%, #f0abfc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .box {
+      background: #11131a;
+      border: 1px solid #1f2430;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+    }
+
+    .menu {
+      position: sticky;
+      top: 5.5rem;
+      max-height: calc(100vh - 7rem);
+      overflow-y: auto;
+      padding-right: .5rem;
+    }
+
+    .menu-list a {
+      border-radius: 8px;
+    }
+
+    .menu-list a.is-active {
+      background: rgba(124, 58, 237, .18);
+      color: #c4b5fd;
+    }
+
+    pre {
+      position: relative;
+      background: #0b0e14 !important;
+      border: 1px solid #1e2533;
+      border-radius: 12px;
+      padding: 1.25rem;
+      overflow-x: auto;
+    }
+
+    pre code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .875rem;
+      line-height: 1.7;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: .55rem;
+      right: .55rem;
+      opacity: .8;
+    }
+
+    code:not(pre code) {
+      background: #1c152b;
+      color: #d8b4fe;
+      padding: .15em .45em;
+      border-radius: .4em;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .85em;
+    }
+
+    .table {
+      background: transparent;
+    }
+
+    .table th {
+      color: #bac0cc;
+      font-weight: 600;
+    }
+
+    .table td,
+    .table th {
+      border-color: #232838 !important;
+      vertical-align: middle;
+    }
+
+    .tag.is-soft {
+      background: rgba(124, 58, 237, .15);
+      color: #c4b5fd;
+      border: 1px solid rgba(124, 58, 237, .3);
+    }
+
+    .content h2 {
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #1e222f;
+    }
+
+    .content h3 {
+      color: #e2e8f0;
+      margin-top: 2rem;
+    }
+
+    .is-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0a0a0b;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #232838;
+      border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2e3548;
+    }
+  </style>
+</head>
+
+<body class="has-navbar-fixed-top">
+  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="#">
+          <span class="icon has-text-primary"><i class="fa-solid fa-bolt"></i></span>
+          <strong class="ml-2">Teak</strong>
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+          <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div id="navMenu" class="navbar-menu">
+        <div class="navbar-start">
+          <a href="#syntax" class="navbar-item">Syntax</a>
+          <a href="#collections" class="navbar-item">Collections</a>
+          <a href="#stdlib" class="navbar-item">Standard Library</a>
+          <a href="#examples" class="navbar-item">Examples</a>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary is-soft" href="#examples">
+                <span class="icon"><i class="fa-solid fa-play"></i></span>
+                <span>Examples</span>
+              </a>
+              <a class="button is-dark" href="https://github.com/asad-awadia/teaklang">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero is-medium">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered is-variable is-8">
+          <div class="column is-6">
+            <span class="tag is-soft is-medium mb-3">Node.js runtime • .tk files</span>
+            <h1 class="title is-1 mb-4">Teak Lang</h1>
+            <p class="subtitle is-5 has-text-grey-light">
+              A Kotlin-inspired scripting language running on Node.js. Data classes, immutable collections,
+              lazy sequences, channels, file streams, and HTTP — all in a familiar syntax.
+            </p>
+            <div class="buttons mt-4">
+              <a href="#start" class="button is-primary"><span class="icon"><i
+                    class="fa-solid fa-book"></i></span><span>Read the Docs</span></a>
+              <a href="#examples" class="button is-dark is-outlined"><span>See Examples</span></a>
+            </div>
+          </div>
+          <div class="column is-6">
+            <div class="box">
+              <pre><code class="language-kotlin">data class User(name, score)
+
+val users = mutableListOf(
+  User("Ada", 95), User("Grace", 88), User("Linus", 92)
+)
+
+val top = users
+  .filter { it.score > 90 }
+  .sortedByDescending { it.score }
+
+top.forEach { println("${it.name}: ${it.score}") }
+// Ada: 95
+// Linus: 92</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="start">
+    <div class="container">
+      <div class="columns is-variable is-8">
+        <div class="column is-3 is-hidden-touch">
+          <aside class="menu">
+            <p class="menu-label">Guide</p>
+            <ul class="menu-list">
+              <li><a href="#syntax" class="is-active">Language Syntax</a>
+                <ul>
+                  <li><a href="#variables">val / var</a></li>
+                  <li><a href="#functions">Functions</a></li>
+                  <li><a href="#dataclasses">Data Classes</a></li>
+                  <li><a href="#lambdas">Lambdas</a></li>
+                  <li><a href="#control">Control Flow</a></li>
+                  <li><a href="#operators">Operators</a></li>
+                  <li><a href="#strings">Strings</a></li>
+                </ul>
+              </li>
+              <li><a href="#collections">Collections</a>
+                <ul>
+                  <li><a href="#list">List</a></li>
+                  <li><a href="#set">Set</a></li>
+                  <li><a href="#map">Map</a></li>
+                  <li><a href="#treemap">TreeMap</a></li>
+                  <li><a href="#sequence">Sequence</a></li>
+                </ul>
+              </li>
+              <li><a href="#stdlib">Standard Library</a></li>
+              <li><a href="#examples">Examples</a></li>
+            </ul>
+            <div class="field mt-4">
+              <p class="control has-icons-left">
+                <input id="search" class="input is-small is-dark" type="text" placeholder="Filter docs">
+                <span class="icon is-small is-left"><i class="fas fa-search"></i></span>
+              </p>
+            </div>
+          </aside>
+        </div>
+
+        <div class="column is-9">
+          <div class="content">
+            <div class="notification is-dark" style="background:#0f1320;border:1px solid #1e2533">
+              <strong>Run:</strong> <code>npx @teaklang/teak your-script.tk</code> — scripts use the <code>.tk</code>
+              extension.
+            </div>
+
+            <!-- ═══════════════════════════════ SYNTAX ════════════════════════════════ -->
+            <h2 id="syntax">Language Syntax</h2>
+
+            <div class="box" id="variables">
+              <h3 class="title is-5">val / var</h3>
+              <p><code>val</code> creates an immutable binding. <code>var</code> creates a mutable one that can be
+                reassigned. Compound assignment operators work on <code>var</code>.</p>
+              <pre><code class="language-kotlin">val name = "teak"      // immutable binding
+var count = 0          // mutable
+
+count += 1             // compound: +=  -=  *=  /=
+count *= 2
+
+val pi  = 3.1415
+val ok  = true
+val nothing = null</code></pre>
+            </div>
+
+            <div class="box" id="functions">
+              <h3 class="title is-5">Functions & Receiver Functions</h3>
+              <p>Regular functions use <code>fun name(params) { ... }</code>. A single-expression body can use
+                <code>= expr</code>. Receiver functions attach a method to a data class type using
+                <code>fun (varName TypeName) methodName(params)</code>.
+              </p>
+              <p>Functions support <strong>default parameters</strong>. Parameters with default values must come at the
+                end
+                of the list. Defaults can refer to earlier parameters.</p>
+              <pre><code class="language-kotlin">fun add(a, b) = a + b
+
+fun greet(name = "Guest", prefix = "Hello") = "$prefix, $name!"
+
+println(greet())           // Hello, Guest!
+println(greet("Ada"))      // Hello, Ada!
+
+// Default values can refer to previous parameters
+fun volume(w, h = w, d = h) = w * h * d
+println(volume(3))         // 27 (3*3*3)
+
+// receiver function — attaches .area() to Rect instances
+data class Rect(w, h)
+fun (r Rect) area() = r.w * r.h
+fun (r Rect) scale(s) = Rect(r.w * s, r.h * s)
+
+val box = Rect(3, 4)
+println(box.area())        // 12
+println(box.scale(2))      // Rect(w=6, h=8)</code></pre>
+            </div>
+
+            <div class="box" id="dataclasses">
+              <h3 class="title is-5">Data Classes</h3>
+              <p>Declare with <code>data class Name(field1, field2, ...)</code>. Instances print with a readable
+                <code>Name(field=value)</code> format and expose their fields as properties. Fields can have
+                <strong>default values</strong>.
+              </p>
+              <pre><code class="language-kotlin">data class Point(x, y)
+data class User(name, age = 18, active = true)
+
+val p = Point(3, 4)
+println(p)           // Point(x=3, y=4)
+
+val u = User("Ada")
+println(u)           // User(name=Ada, age=18, active=true)
+
+// receiver functions extend data classes
+fun (p Point) distanceTo(other) =
+  sqrt((p.x - other.x) * (p.x - other.x) +
+       (p.y - other.y) * (p.y - other.y))
+
+println(Point(0,0).distanceTo(Point(3,4)))  // 5</code></pre>
+            </div>
+
+            <div class="box" id="lambdas">
+              <h3 class="title is-5">Lambdas &amp; Anonymous Functions</h3>
+              <p>Three ways to write a callable value:</p>
+              <ul>
+                <li><strong>Block lambda</strong> — <code>{ params -> body }</code></li>
+                <li><strong>Anonymous function</strong> — <code>fun(params) { body }</code> or
+                  <code>fun(params) = expr</code>
+                </li>
+                <li><strong>Trailing lambda</strong> — last argument can be moved outside the parens; parens optional
+                  when it's the only argument</li>
+              </ul>
+              <p>Single-parameter lambdas with no explicit param name get the implicit <code>it</code> variable.</p>
+              <pre><code class="language-kotlin">// block lambda
+val double = { x -> x * 2 }
+val add    = { a, b -> a + b }
+println(double(5))    // 10
+println(add(3, 4))    // 7
+
+// anonymous function expression
+val triple = fun(x) = x * 3
+val clamp  = fun(v, lo, hi) {
+  if (v < lo) return lo
+  if (v > hi) return hi
+  return v
+}
+println(triple(4))         // 12
+println(clamp(15, 0, 10))  // 10
+
+// implicit 'it' — single-param lambda, no arrow needed
+listOf(1, 2, 3).forEach { println(it) }
+
+// trailing lambda syntax
+listOf(1, 2, 3).map { it * it }.forEach { println(it) }
+
+// trailing lambda — parens omitted when only argument
+mutableListOf(3, 1, 2).sort { a, b -> a - b }
+
+// multi-line trailing lambda
+val result = listOf(1, 2, 3, 4, 5).fold(0) { acc, v ->
+  acc + v
+}
+println(result)  // 15</code></pre>
+            </div>
+
+            <div class="box" id="control">
+              <h3 class="title is-5">Control Flow</h3>
+              <pre><code class="language-kotlin">// if / else (also an expression)
+val max = if (a > b) a else b
+
+// when with a value — multi-match with commas
+val label = when (code) {
+  200      -> "OK"
+  404, 403 -> "Not allowed"
+  else     -> "Unknown"
+}
+
+// when without a value — acts as if-else chain
+val sign = when {
+  x < 0  -> "negative"
+  x == 0 -> "zero"
+  else   -> "positive"
+}
+
+// for..in with inclusive range
+for (i in 1..5) println(i)
+
+// for..in over any collection or sequence
+for (item in listOf("a", "b", "c")) println(item)
+
+// while, break, continue, return
+var i = 0
+while (i < 10) {
+  i += 1
+  if (i == 3) continue
+  if (i == 8) break
+}</code></pre>
+            </div>
+
+            <div class="box" id="operators">
+              <h3 class="title is-5">Operators</h3>
+              <table class="table is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Operator</th>
+                    <th>Meaning</th>
+                    <th>Example</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>+ - * / %</code></td>
+                    <td>Arithmetic</td>
+                    <td><code>10 * 2 + 5</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>+= -= *= /=</code></td>
+                    <td>Compound assignment</td>
+                    <td><code>x += 1</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>== != &lt; &gt; &lt;= &gt;=</code></td>
+                    <td>Comparison</td>
+                    <td><code>a != b</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>&amp;&amp; || !</code></td>
+                    <td>Logical</td>
+                    <td><code>a &amp;&amp; !b</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>..</code></td>
+                    <td>Inclusive range</td>
+                    <td><code>1..100</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>to</code></td>
+                    <td>Pair / map entry</td>
+                    <td><code>"key" to 42</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="box" id="strings">
+              <h3 class="title is-5">Strings &amp; Interpolation</h3>
+              <p>Double-quoted strings support two interpolation forms. Triple-quoted strings (<code>"""..."""</code>)
+                are raw and multiline — no escape sequences, no interpolation.</p>
+              <pre><code class="language-kotlin">val lang = "teak"
+println("Hello from $lang!")            // $name — simple variable
+println("2 + 2 = ${2 + 2}")             // ${expr} — any expression
+println("upper: ${lang.toUpperCase()}")
+
+// Note: $name stops at the first non-identifier character
+// Use ${obj.field} for member access inside strings
+val p = Point(3, 4)
+println("x is ${p.x}, y is ${p.y}")    // correct
+// println("x is $p.x")               // would print the whole object + ".x"
+
+// triple-quoted strings: raw, multiline, no escaping needed
+val html = """
+  <html>
+    <body><h1>Hello</h1></body>
+  </html>
+"""
+
+// JS string methods are available
+val s = "  hello, world  "
+println(s.trim())                       // "hello, world"
+println(s.trim().split(",").join("-"))  // "hello- world"
+println("hello".startsWith("he"))      // true
+println("test".includes("es"))         // true
+println("abc".toUpperCase())           // ABC</code></pre>
+            </div>
+
+            <!-- ═══════════════════════════════ COLLECTIONS ════════════════════════════════ -->
+            <h2 id="collections">Collections</h2>
+
+            <div class="box" id="list">
+              <h3 class="title is-5">List</h3>
+              <p>
+                <code>listOf(...)</code> returns an <strong>ImmutableList</strong> — mutation methods are not
+                available.<br>
+                <code>mutableListOf(...)</code> returns a full <strong>ArrayList</strong> with all mutation methods.<br>
+                <code>toList()</code> returns an ImmutableList. <code>toMutableList()</code> returns an ArrayList.
+              </p>
+              <pre><code class="language-kotlin">val nums  = listOf(1, 2, 3)         // ImmutableList
+val items = mutableListOf(1, 2, 3)  // ArrayList — can mutate
+
+items.add(4)
+items.set(0, 99)
+items.remove(2)
+items.removeAt(0)
+items.clear()</code></pre>
+              <table class="table is-fullwidth is-hoverable mt-4">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Methods</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Access</td>
+                    <td><code>get(i)</code> · <code>size()</code> · <code>isEmpty()</code> · <code>contains(x)</code> ·
+                      <code>indexOf(x)</code> · <code>first()</code> · <code>last()</code> · <code>head()</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Mutation <small class="has-text-grey">(mutableListOf only)</small></td>
+                    <td><code>add(x)</code> · <code>addAll(xs)</code> · <code>set(i,v)</code> · <code>remove(x)</code> ·
+                      <code>removeAt(i)</code> · <code>clear()</code> · <code>sort(fn?)</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Slicing</td>
+                    <td><code>take(n)</code> · <code>drop(n)</code> · <code>rest()</code> · <code>reversed()</code> ·
+                      <code>chunked(n)</code> · <code>windowed(n,step?)</code> · <code>zip(other)</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Sorting</td>
+                    <td><code>sorted()</code> · <code>sortedDescending()</code> · <code>sortedBy(fn)</code> ·
+                      <code>sortedByDescending(fn)</code> · <code>sortedWith(cmp)</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Filtering</td>
+                    <td><code>filter(fn)</code> · <code>filterNot(fn)</code> · <code>filterNotNull()</code> ·
+                      <code>takeWhile(fn)</code> · <code>dropWhile(fn)</code> · <code>distinct()</code> ·
+                      <code>distinctBy(fn)</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Predicates</td>
+                    <td><code>any(fn)</code> · <code>all(fn)</code> · <code>none(fn)</code> · <code>find(fn)</code></td>
+                  </tr>
+                  <tr>
+                    <td>Mapping</td>
+                    <td><code>map(fn)</code> · <code>mapIndexed(fn)</code> · <code>mapNotNull(fn)</code> ·
+                      <code>flatMap(fn)</code> · <code>flatten()</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Reduction</td>
+                    <td><code>fold(init, fn)</code> · <code>reduce(fn)</code> · <code>sum()</code> ·
+                      <code>sumOf(fn)</code> · <code>average()</code> · <code>count(fn?)</code> ·
+                      <code>maxOrNull()</code> · <code>minOrNull()</code> · <code>maxByOrNull(fn)</code> ·
+                      <code>minByOrNull(fn)</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Grouping</td>
+                    <td><code>groupBy(fn)</code> · <code>associate(fn)</code> · <code>associateBy(fn)</code> ·
+                      <code>partition(fn)</code> · <code>joinToString(sep?,prefix?,postfix?)</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Iteration</td>
+                    <td><code>forEach(fn)</code> · <code>forEachIndexed(fn)</code> · <code>onEach(fn)</code></td>
+                  </tr>
+                  <tr>
+                    <td>Conversion</td>
+                    <td><code>toList()</code> · <code>toMutableList()</code> · <code>toSet()</code> ·
+                      <code>toMutableSet()</code> · <code>toSequence()</code> · <code>asSequence()</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pre><code class="language-kotlin">val nums = mutableListOf(5, 1, 3, 2, 4)
+println(nums.sorted())                    // [1, 2, 3, 4, 5]
+println(nums.filter { it > 2 }.sum())     // 12
+println(nums.fold(0) { acc, v -> acc + v }) // 15
+
+// Grouping and counting
+val words = listOf("apple", "banana", "apple", "cherry")
+val counts = words.groupBy { it }.mapValues { it.size() }
+println(counts) // {apple: 2, banana: 1, cherry: 1}</code></pre>
+            </div>
+
+            <div class="box" id="set">
+              <h3 class="title is-5">Set</h3>
+              <p>
+                <code>setOf(...)</code> returns an <strong>ImmutableSet</strong> — no
+                <code>add</code>/<code>remove</code>/<code>clear</code>.<br>
+                <code>mutableSetOf(...)</code> returns a <strong>TkSet</strong> with full mutation.
+              </p>
+              <pre><code class="language-kotlin">val s  = setOf(1, 2, 3)          // ImmutableSet
+val ms = mutableSetOf(1, 2, 3)   // TkSet
+
+ms.add(4)
+ms.remove(1)
+println(ms.contains(2))  // true
+println(ms.size())        // 3
+
+// set operations (return a new TkSet)
+val a = mutableSetOf(1, 2, 3)
+val b = mutableSetOf(2, 3, 4)
+println(a.union(b))      // [1, 2, 3, 4]
+println(a.intersect(b))  // [2, 3]
+println(a.subtract(b))   // [1]
+
+// conversion
+val list = s.toList()         // ImmutableList
+val mlist = s.toMutableList() // ArrayList</code></pre>
+            </div>
+
+            <div class="box" id="map">
+              <h3 class="title is-5">Map</h3>
+              <p>
+                <code>mapOf("k" to v, ...)</code> returns an <strong>ImmutableMap</strong> —
+                <code>put</code>/<code>set</code>/<code>remove</code> are not available.<br>
+                <code>mutableMapOf(...)</code> returns a full <strong>TkMap</strong>.<br>
+                Entries are created with the <code>to</code> operator: <code>"key" to value</code>.
+              </p>
+              <pre><code class="language-kotlin">val m  = mapOf("a" to 1, "b" to 2)    // ImmutableMap
+val mm = mutableMapOf("a" to 1)       // TkMap — can mutate
+
+mm.put("b", 2)
+mm.remove("a")
+
+// read (works on both)
+println(m.get("a"))          // 1
+println(m.containsKey("b"))  // true
+println(m.keys())            // [a, b]
+println(m.values())          // [1, 2]
+println(m.size())            // 2
+
+// escape to mutable
+val editable = m.toMutableMap()
+editable.put("c", 3)
+
+// mapping maps
+val doubled = m.mapValues { it * 2 }  // {a: 2, b: 4}
+val upper   = m.mapKeys { it.toUpperCase() } // {A: 1, B: 2}
+
+// holistic operations (it is {key, value})
+val entries = m.map { "${it.key}=${it.value}" } // [a=1, b=2]
+val filtered = m.filter { it.value > 1 }        // {b: 2}
+val hasLarge = m.any { it.value > 10 }          // false</code></pre>
+            </div>
+
+            <div class="box" id="treemap">
+              <h3 class="title is-5">TreeMap</h3>
+              <p>A sorted map backed by a red-black tree. Pass <code>numCmp</code> or <code>strCmp</code> (or any
+                comparator function) to set the ordering.</p>
+              <pre><code class="language-kotlin">val tm = treeMap(numCmp)
+tm.put(3, "three")
+tm.put(1, "one")
+tm.put(2, "two")
+
+// or use treeMapOf with pairs
+val tm2 = treeMapOf(strCmp, "z" to 26, "a" to 1)
+
+println(tm.keys())        // [1, 2, 3]
+println(tm.get(2))        // two
+println(tm.firstKey())    // 1
+println(tm.lastKey())     // 3
+println(tm.containsKey(2)) // true
+
+// range query — returns list of [key, value] pairs
+val range = tm.subMap(1, 3)  // keys >= 1 and < 3
+for (p in range) {
+  println(p[0], "=>", p[1])
+}
+
+tm.remove(2)
+tm.clear()
+println(tm.size())        // 0</code></pre>
+            </div>
+
+            <div class="box" id="sequence">
+              <h3 class="title is-5">Sequence — lazy pipelines</h3>
+              <p>Sequences are lazy — intermediate operations build a pipeline; nothing runs until a terminal operation
+                is called. Use <code>asSequence()</code> or <code>toSequence()</code> to convert a list, or use
+                <code>File.walkTopDown()</code> which returns a Sequence directly.
+              </p>
+              <table class="table is-fullwidth mt-3">
+                <thead>
+                  <tr>
+                    <th>Kind</th>
+                    <th>Methods</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Lazy</td>
+                    <td><code>map</code> · <code>filter</code> · <code>filterNot</code> · <code>filterNotNull</code> ·
+                      <code>mapNotNull</code> · <code>flatMap</code> · <code>flatten</code> · <code>take</code> ·
+                      <code>takeWhile</code> · <code>drop</code> · <code>dropWhile</code> · <code>distinct</code> ·
+                      <code>distinctBy</code> · <code>onEach</code> · <code>chunked</code> · <code>windowed</code> ·
+                      <code>zip</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Terminal</td>
+                    <td><code>forEach</code> · <code>forEachIndexed</code> · <code>toList</code> ·
+                      <code>toMutableList</code> · <code>toSet</code> · <code>reduce</code> · <code>fold</code> ·
+                      <code>sum</code> · <code>sumOf</code> · <code>average</code> · <code>count</code> ·
+                      <code>any</code> · <code>all</code> · <code>none</code> · <code>find</code> · <code>first</code> ·
+                      <code>last</code> · <code>maxOrNull</code> · <code>minOrNull</code> · <code>groupBy</code> ·
+                      <code>associate</code> · <code>partition</code> · <code>joinToString</code> · <code>sorted</code>
+                      · <code>sortedBy</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pre><code class="language-kotlin">val sum = listOf(1, 2, 3, 4, 5)
+  .asSequence()
+  .filter { it % 2 == 1 }
+  .map { it * it }
+  .take(2)
+  .sum()           // 1 + 9 = 10
+
+// walk files lazily
+val tkFiles = File(".")
+  .walkTopDown()
+  .filter { it.isFile() }
+  .map { it.path }
+  .take(10)
+  .toList()</code></pre>
+            </div>
+
+            <!-- ═══════════════════════════════ STDLIB ════════════════════════════════ -->
+            <h2 id="stdlib">Standard Library</h2>
+
+            <div class="box">
+              <h3 class="title is-6">Output &amp; Core</h3>
+              <pre><code class="language-kotlin">println("hello")              // print any value
+println(a, "=>", b)           // multiple args, space-separated
+listOf(1, 2, 3)               // ImmutableList
+mutableListOf(1, 2, 3)        // ArrayList
+setOf(1, 2, 3)                // ImmutableSet
+mutableSetOf(1, 2, 3)         // TkSet
+mapOf("a" to 1)               // ImmutableMap
+mutableMapOf("a" to 1)        // TkMap
+numCmp(a, b)                  // -1 / 0 / 1  (numeric comparator)
+strCmp(a, b)                  // string comparator
+
+// dynamic method definition (ArrayList, Sequence, Data Classes)
+ArrayList.defineMethod("sumPlusOne") { self -> self.sum() + 1 }
+println(listOf(1, 2).sumPlusOne())  // 4</code></pre>
+            </div>
+
+            <div class="box">
+              <h3 class="title is-6">Math</h3>
+              <pre><code class="language-kotlin">abs(-5)       // 5
+floor(2.9)    // 2
+ceil(2.1)     // 3
+round(2.5)    // 3
+sqrt(16.0)    // 4
+pow(2, 10)    // 1024
+log(2.718)    // ~1
+max(3, 7)     // 7
+min(3, 7)     // 3
+random()      // 0.0 .. 1.0
+toInt(3.9)    // 3  (truncates toward zero)
+PI            // 3.141592...</code></pre>
+            </div>
+
+            <div class="box">
+              <h3 class="title is-6">Encoding, Crypto, Modules &amp; JSON</h3>
+              <pre><code class="language-kotlin">sha256("hello")              // hex digest string
+base64Encode("hi")           // "aGk="
+base64Decode("aGk=")         // "hi"
+jsonParse("{\"x\":1}")       // plain object  { x: 1 }
+jsonStringify(obj)           // compact JSON string
+
+// modules
+include("other.tk")          // execute another file in global scope
+val mod = requireFile("m.tk") // execute and return its 'exports' map
+
+// allowed: "lodash", "axios", "dayjs", "uuid"
+val _ = importNpm("lodash")</code></pre>
+            </div>
+
+            <div class="box">
+              <h3 class="title is-6">Time</h3>
+              <pre><code class="language-kotlin">val t = now()          // epoch milliseconds
+sleep(1000)            // suspend for 1 s (non-blocking)
+formatTime(now())      // ISO-8601 string</code></pre>
+            </div>
+
+            <div class="box">
+              <h3 class="title is-6">File System</h3>
+              <pre><code class="language-kotlin">val f = File("data.txt")
+f.exists()               // true / false
+f.isFile()
+f.isDirectory()
+f.size()                 // bytes
+f.lastModified()         // epoch ms
+f.readText()             // full string
+f.writeText("hello")
+f.appendText("\nworld")
+f.readJson()             // parse JSON file
+f.writeJson(obj)
+f.delete()
+f.mkdir()
+f.copyTo("backup.txt")
+f.moveTo("archive/data.txt")
+f.list()                 // ArrayList of File objects
+f.listFiles()            // same as list()
+f.walkTopDown()          // lazy Sequence of File objects
+f.tailFile()             // infinite Sequence following file additions
+
+// readLines() — streaming line pipeline
+File("log.txt").readLines()
+  .filter { it.includes("ERROR") }
+  .map { it.trim() }
+  .take(20)
+  .forEach { println(it) }
+
+// tailFile() — infinite stream that follows file additions
+File("live.log").tailFile()
+  .filter { it.includes("CRITICAL") }
+  .forEach { println("ALERT: $it") }
+
+// toList() collects all results
+val lines = File("data.csv").readLines()
+  .drop(1)               // skip header
+  .filter { it.size() > 0 }
+  .toList()              // ImmutableList</code></pre>
+            </div>
+
+            <div class="box">
+              <h3 class="title is-6">Process &amp; Environment</h3>
+              <pre><code class="language-kotlin">// exec returns a handle — call .wait() to get results
+val proc = exec("ls -la")
+val res  = proc.wait()
+
+println(res.stdout)    // output string
+println(res.code)      // exit code (0 = ok)
+println(proc.pid)      // process ID
+
+proc.kill()            // SIGINT
+proc.killForcefully()  // SIGKILL
+
+spawn("echo", ["hello"])       // fire-and-forget subprocess
+
+env("HOME")                    // read env var
+setEnv("DEBUG", "1")           // set env var</code></pre>
+            </div>
+
+            <div class="box">
+              <h3 class="title is-6">HTTP Client</h3>
+              <pre><code class="language-kotlin">val body = httpGet("https://api.example.com/data")
+println(body)   // raw response text
+
+val resp = httpPost(
+  "https://api.example.com/users",
+  mapOf("name" to "Ada", "role" to "admin")
+)
+println(resp)
+
+download("https://example.com/image.jpg", "image.jpg")</code></pre>
+            </div>
+
+            <div class="box">
+              <h3 class="title is-6">HTTP Server</h3>
+              <p>
+                <code>HttpServer(port)</code> returns a server object. Route handlers receive a <strong>context</strong>
+                — use <code>it</code> (implicit) or a named parameter via trailing lambda or <code>fun(ctx)</code>.<br>
+                Path segments starting with <code>:</code> are captured as params. <code>ctx.params</code> and
+                <code>ctx.query</code> are both <strong>TkMap</strong> — use <code>.get(key)</code>.
+              </p>
+
+              <table class="table is-fullwidth mt-3">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>server.use { ctx, next -> }</code></td>
+                    <td>Add middleware — call <code>next()</code> to continue</td>
+                  </tr>
+                  <tr>
+                    <td><code>server.get(path) { }</code></td>
+                    <td>GET route</td>
+                  </tr>
+                  <tr>
+                    <td><code>server.post(path) { }</code></td>
+                    <td>POST route</td>
+                  </tr>
+                  <tr>
+                    <td><code>server.put(path) { }</code></td>
+                    <td>PUT route</td>
+                  </tr>
+                  <tr>
+                    <td><code>server.patch(path) { }</code></td>
+                    <td>PATCH route</td>
+                  </tr>
+                  <tr>
+                    <td><code>server.delete(path) { }</code></td>
+                    <td>DELETE route</td>
+                  </tr>
+                  <tr>
+                    <td><code>server.start()</code></td>
+                    <td>Start listening</td>
+                  </tr>
+                  <tr>
+                    <td><code>server.stop()</code></td>
+                    <td>Graceful shutdown (returns Promise)</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="table is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Context property / method</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>ctx.params</code></td>
+                    <td>TkMap of path params — <code>ctx.params.get("id")</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.query</code></td>
+                    <td>TkMap of query string params — <code>ctx.query.get("q")</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.body</code></td>
+                    <td>Parsed JSON body (or raw string if not JSON)</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.path</code></td>
+                    <td>Request pathname string</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.method</code></td>
+                    <td>HTTP method string (<code>"GET"</code>, <code>"POST"</code>, …)</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.status(code)</code></td>
+                    <td>Set response status — chainable</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.header(k, v)</code></td>
+                    <td>Set a response header — chainable</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.json(obj)</code></td>
+                    <td>Send JSON response</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.text(str)</code></td>
+                    <td>Send plain text response</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.html(str)</code></td>
+                    <td>Send HTML response</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <pre><code class="language-kotlin">val server = HttpServer(8080)
+
+// middleware — runs before every handler
+server.use { ctx, next ->
+  println("${ctx.method} ${ctx.path}")
+  ctx.header("X-Powered-By", "teak")
+  next()
+}
+
+// trailing lambda (preferred style)
+server.get("/") {
+  it.html("""&lt;h1&gt;Hello from teak!&lt;/h1&gt;""")
+}
+
+// path params — :id captured into ctx.params
+server.get("/users/:id") {
+  val id = it.params.get("id")
+  it.json(mutableMapOf("userId" to id))
+}
+
+// query params — ?q=hello into ctx.query
+server.get("/search") {
+  val q = it.query.get("q")
+  it.json(mutableMapOf("query" to q))
+}
+
+// POST with JSON body
+server.post("/users") {
+  val name = it.body.name          // body is parsed JSON
+  it.status(201).json(mutableMapOf("created" to name))
+}
+
+// multi-segment path params
+server.get("/items/:category/:id") { ctx ->
+  val cat = ctx.params.get("category")
+  val id  = ctx.params.get("id")
+  ctx.json(mutableMapOf("category" to cat, "id" to id))
+}
+
+// anonymous fun style also works
+server.delete("/users/:id", fun(ctx) {
+  val id = ctx.params.get("id")
+  ctx.status(204).text("")
+})
+
+server.start()   // Server listening on :8080
+// server.stop() // graceful shutdown</code></pre>
+            </div>
+
+            <div class="box">
+              <h3 class="title is-6">Concurrency</h3>
+              <p><code>go { }</code> runs a block on the event loop without blocking. <code>chan()</code> creates a
+                channel for communicating between goroutines. <code>waitGroup()</code> coordinates multiple concurrent
+                tasks.</p>
+              <pre><code class="language-kotlin">// fire-and-forget
+go {
+  sleep(1000)
+  println("one second later")
+}
+
+// channel communication
+val ch = chan()
+
+go { ch.send(1) }
+go { ch.send(2) }
+
+for (i in 1..2) {
+  println(ch.receive())
+}
+
+// waitGroup
+val wg = waitGroup()
+for (i in 1..3) {
+  wg.add(1)
+  go {
+    sleep(100)
+    println("worker $i done")
+    wg.done()
+  }
+}
+wg.wait()
+println("all workers finished")</code></pre>
+            </div>
+
+            <!-- ═══════════════════════════════ EXAMPLES ════════════════════════════════ -->
+            <h2 id="examples">Examples</h2>
+            <div class="box" id="playground">
+              <div class="tabs is-boxed" data-target="#examplePanels">
+                <ul>
+                  <li class="is-active"><a>Data Classes</a></li>
+                  <li><a>Recursion</a></li>
+                  <li><a>File Pipeline</a></li>
+                  <li><a>Concurrency</a></li>
+                  <li><a>HTTP Server</a></li>
+                </ul>
+              </div>
+              <div id="examplePanels">
+
+                <div class="tab-panel">
+                  <pre><code class="language-kotlin">data class Vec2(x, y)
+
+fun (v Vec2) length() = sqrt(v.x * v.x + v.y * v.y)
+fun (v Vec2) add(other) = Vec2(v.x + other.x, v.y + other.y)
+fun (v Vec2) scale(s) = Vec2(v.x * s, v.y * s)
+fun (v Vec2) dot(other) = v.x * other.x + v.y * other.y
+fun (v Vec2) normalize() = v.scale(1.0 / v.length())
+
+val a = Vec2(3, 4)
+val b = Vec2(1, 2)
+
+println(a)               // Vec2(x=3, y=4)
+println(a.length())      // 5
+println(a.add(b))        // Vec2(x=4, y=6)
+println(a.scale(2))      // Vec2(x=6, y=8)
+println(a.dot(b))        // 11
+println(a.normalize())   // Vec2(x=0.6, y=0.8)
+
+// pipeline with data classes
+val points = mutableListOf(Vec2(3,4), Vec2(1,1), Vec2(0,5))
+val sorted = points.sortedBy { it.length() }
+sorted.forEach { println("${it.x},${it.y} len=${it.length()}") }</code></pre>
+                </div>
+
+                <div class="tab-panel is-hidden">
+                  <pre><code class="language-kotlin">// recursive sum
+fun sumList(lst) {
+  if (lst.isEmpty()) return 0
+  return lst.get(0) + sumList(lst.drop(1))
+}
+println(sumList(listOf(1, 2, 3, 4, 5)))  // 15
+
+// recursive tree
+data class TreeNode(value, left, right)
+
+fun countLeaves(node) {
+  if (node == null) return 0
+  if (node.left == null && node.right == null) return 1
+  return countLeaves(node.left) + countLeaves(node.right)
+}
+
+//       1
+//      / \
+//     2   3
+//    / \
+//   4   5
+val root = TreeNode(1,
+  TreeNode(2, TreeNode(4, null, null), TreeNode(5, null, null)),
+  TreeNode(3, null, null)
+)
+println(countLeaves(root))  // 3</code></pre>
+                </div>
+
+                <div class="tab-panel is-hidden">
+                  <pre><code class="language-kotlin">// stream a large file line-by-line with zero memory overhead
+File("server.log").readLines()
+  .filter { it.includes("ERROR") }
+  .map { it.trim() }
+  .take(50)
+  .forEach { println(it) }
+
+// collect to an immutable list
+val errors = File("server.log").readLines()
+  .filter { it.includes("ERROR") }
+  .distinct()
+  .sorted()
+  .toList()   // ImmutableList
+
+println("${errors.size()} unique error lines")
+
+// walk directory tree
+val sources = File(".")
+  .walkTopDown()
+  .filter { it.isFile() }
+  .map { it.path }
+  .filter { it.includes(".tk") }
+  .toList()
+
+sources.forEach { println(it) }
+
+// tail -f style
+File("access.log").tailFile()
+  .map { it.toUpperCase() }
+  .forEach { println(it) }</code></pre>
+                </div>
+
+                <div class="tab-panel is-hidden">
+                  <pre><code class="language-kotlin">// producer / consumer via channel
+val ch = chan()
+val wg = waitGroup()
+
+// producer
+go {
+  for (i in 1..5) {
+    ch.send(i)
+    sleep(50)
+  }
+  ch.close()
+}
+
+// 2 consumers
+for (w in 1..2) {
+  wg.add(1)
+  go {
+    while (true) {
+      val job = ch.receive()
+      if (job == null) break
+      println("worker $w got $job")
+    }
+    wg.done()
+  }
+}
+
+sleep(1000)
+for (i in 1..5) {
+  println(ch.receive())
+}</code></pre>
+                </div>
+
+                <div class="tab-panel is-hidden">
+                  <pre><code class="language-kotlin">data class Todo(id, title, done)
+
+val todos = mutableListOf(
+  Todo(1, "Buy milk",   false),
+  Todo(2, "Write code", true),
+  Todo(3, "Read docs",  false)
+)
+
+val server = HttpServer(8080)
+
+// middleware: log + CORS
+server.use { ctx, next ->
+  println("${ctx.method} ${ctx.path}")
+  ctx.header("Access-Control-Allow-Origin", "*")
+  next()
+}
+
+// HTML homepage
+server.get("/") {
+  it.html("""
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;&lt;title&gt;Todos&lt;/title&gt;&lt;/head&gt;
+      &lt;body&gt;
+        &lt;h1&gt;Todo API&lt;/h1&gt;
+        &lt;p&gt;GET /todos | POST /todos | GET /todos/:id&lt;/p&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  """)
+}
+
+// list all — optional ?done=true filter via query params
+server.get("/todos") {
+  val filter = it.query.get("done")
+  val result = if (filter == "true")
+    todos.filter { t -> t.done }
+  else
+    todos
+  it.json(mutableMapOf("todos" to result))
+}
+
+// get by id — path param
+server.get("/todos/:id") {
+  val id = toInt(it.params.get("id"))
+  val todo = todos.find { t -> t.id == id }
+  if (todo == null) it.status(404).json(mutableMapOf("error" to "not found"))
+  else it.json(todo)
+}
+
+// create — POST body
+server.post("/todos") {
+  val next = Todo(todos.size() + 1, it.body.title, false)
+  todos.add(next)
+  it.status(201).json(next)
+}
+
+// delete by id — path param
+server.delete("/todos/:id") {
+  val id = toInt(it.params.get("id"))
+  todos.remove(todos.find { t -> t.id == id })
+  it.status(204).text("")
+}
+
+server.start()   // Server listening on :8080</code></pre>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="box">
+              <h3 class="title is-6">Why teak?</h3>
+              <div class="columns">
+                <div class="column">
+                  <p><i class="fa-solid fa-feather has-text-primary"></i> <strong>Familiar</strong> — Kotlin-style val,
+                    fun, data class, lambdas, when</p>
+                </div>
+                <div class="column">
+                  <p><i class="fa-solid fa-bolt has-text-primary"></i> <strong>Safe</strong> — Immutable lists, sets,
+                    and maps by default</p>
+                </div>
+                <div class="column">
+                  <p><i class="fa-solid fa-layer-group has-text-primary"></i> <strong>Complete</strong> — Collections,
+                    HTTP, files, concurrency, crypto</p>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+            <p class="has-text-grey">© 2026 teak Language. Docs built with Bulma. <span class="is-pulled-right"><a
+                  href="#top">Back to top ↑</a></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const burger = document.querySelector('.navbar-burger');
+      const menu = document.getElementById('navMenu');
+      burger?.addEventListener('click', () => {
+        burger.classList.toggle('is-active');
+        menu.classList.toggle('is-active');
+      });
+
+      if (window.hljs) hljs.highlightAll();
+
+      document.querySelectorAll('pre').forEach(pre => {
+        const btn = document.createElement('button');
+        btn.className = 'button is-dark is-small copy-btn';
+        btn.innerHTML = '<span class="icon is-small"><i class="fa-regular fa-copy"></i></span>';
+        btn.addEventListener('click', () => {
+          const code = pre.querySelector('code')?.innerText || '';
+          navigator.clipboard.writeText(code).then(() => {
+            btn.innerHTML = '<span class="icon is-small"><i class="fa-solid fa-check has-text-primary"></i></span>';
+            setTimeout(() => btn.innerHTML = '<span class="icon is-small"><i class="fa-regular fa-copy"></i></span>', 1200);
+          });
+        });
+        pre.appendChild(btn);
+      });
+
+      document.querySelectorAll('.tabs').forEach(tabs => {
+        const links = tabs.querySelectorAll('li');
+        const target = document.querySelector(tabs.dataset.target);
+        if (!target) return;
+        const panels = target.querySelectorAll(':scope > div');
+        links.forEach((li, idx) => {
+          li.addEventListener('click', e => {
+            e.preventDefault();
+            links.forEach(l => l.classList.remove('is-active'));
+            li.classList.add('is-active');
+            panels.forEach((p, i) => p.classList.toggle('is-hidden', i !== idx));
+            if (window.hljs) hljs.highlightAll();
+          });
+        });
+      });
+
+      const search = document.getElementById('search');
+      search?.addEventListener('input', () => {
+        const q = search.value.toLowerCase();
+        document.querySelectorAll('.menu-list a').forEach(a => {
+          a.style.display = a.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+      });
+
+      const sections = ['syntax', 'variables', 'functions', 'dataclasses', 'lambdas', 'control', 'operators', 'strings',
+        'collections', 'list', 'set', 'map', 'treemap', 'sequence', 'stdlib', 'examples', 'playground']
+        .map(id => document.getElementById(id)).filter(Boolean);
+      const linkMap = new Map(sections.map(s => [s.id, document.querySelector(`.menu a[href="#${s.id}"]`)]));
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            linkMap.forEach(l => l?.classList.remove('is-active'));
+            linkMap.get(e.target.id)?.classList.add('is-active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+      sections.forEach(s => obs.observe(s));
+    });
+  </script>
+</body>
+
+</html>
